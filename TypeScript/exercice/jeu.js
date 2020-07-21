@@ -1,41 +1,44 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const readline_1 = require("readline");
-const random_1 = require("./random");
-class Jeu {
-    constructor(options = {}) {
+var readline_1 = require("readline");
+var random_1 = require("./random");
+var Jeu = /** @class */ (function () {
+    function Jeu(options) {
+        if (options === void 0) { options = {}; }
         this.rl = readline_1.createInterface({
             input: process.stdin,
             output: process.stdout,
         });
         this.essais = [];
-        const { min = 0, max = 100 } = options;
+        var _a = options.min, min = _a === void 0 ? 0 : _a, _b = options.max, max = _b === void 0 ? 100 : _b;
         this.entierAlea = random_1.getRandomInt(min, max);
     }
-    jouer() {
+    Jeu.prototype.jouer = function () {
+        var _this = this;
         if (this.essais.length) {
             console.log('Vous avez déjà joué : ' + this.essais.join(' - '));
         }
-        this.rl.question('Quel est le nombre ? ', (answer) => {
-            const entierSaisi = Number.parseInt(answer, 10);
+        this.rl.question('Quel est le nombre ? ', function (answer) {
+            var entierSaisi = Number.parseInt(answer, 10);
             if (Number.isNaN(entierSaisi)) {
                 console.log('Erreur : Il faut saisir un entier');
-                return this.jouer();
+                return _this.jouer();
             }
-            this.essais.push(entierSaisi);
-            if (entierSaisi < this.entierAlea) {
+            _this.essais.push(entierSaisi);
+            if (entierSaisi < _this.entierAlea) {
                 console.log('Trop petit');
-                this.jouer();
+                _this.jouer();
             }
-            else if (entierSaisi > this.entierAlea) {
+            else if (entierSaisi > _this.entierAlea) {
                 console.log('Trop grand');
-                this.jouer();
+                _this.jouer();
             }
             else {
                 console.log('Gagné');
-                this.rl.close();
+                _this.rl.close();
             }
         });
-    }
-}
+    };
+    return Jeu;
+}());
 exports.default = Jeu;
