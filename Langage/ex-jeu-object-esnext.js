@@ -31,6 +31,11 @@ class Jeu {
   constructor(options = {}) {
     const { min = 0, max = 100 } = options;
     this.entierAlea = Random.getInt(min, max);
+
+    // cloneDeep / deepClone -> lodash
+
+    // Object.assign(this, { min: 0, max: 100 }, options);
+    // this.entierAlea = Random.getInt(this.min, this.max);
   }
   jouer() {
     if (this.essais.length) {

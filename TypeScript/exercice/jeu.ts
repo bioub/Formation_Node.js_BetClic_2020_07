@@ -1,18 +1,24 @@
-'use strict';
+import { createInterface } from 'readline';
+import { getRandomInt } from './random';
 
-const readline = require('readline');
-const Random = require('./random');
+interface JeuOptions {
+  min?: number;
+  max?: number;
+}
 
 class Jeu {
-  constructor(options = {}) {
+  private rl = createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+
+  entierAlea: number;
+  essais: number[] = [];
+
+  constructor(options: JeuOptions = {}) {
     const { min = 0, max = 100 } = options;
 
-    this.rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    });
-    this.entierAlea = Random.getInt(min, max);
-    this.essais = [];
+    this.entierAlea = getRandomInt(min, max);
   }
   jouer() {
     if (this.essais.length) {
@@ -43,4 +49,4 @@ class Jeu {
   }
 }
 
-module.exports = Jeu;
+export default Jeu;
